@@ -39,13 +39,13 @@ def send_email(subject, body, attachment_path, config):
     server.quit()
 
 def check_email_response(config):
-    email = os.getenv('EMAIL_USERNAME')
+    email_name = os.getenv('EMAIL_USERNAME')
     password = os.getenv('EMAIL_PASSWORD')
 
     # Connect to the email server
     mail = imaplib.IMAP4_SSL('imap.gmail.com')
     # mail.login(config['Email']['Email'], config['Email']['Password'])
-    mail.login(email,password)
+    mail.login(email_name,password)
     mail.select('inbox')
 
     result, data = mail.search(None, '(UNSEEN)')
