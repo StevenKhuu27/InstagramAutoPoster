@@ -1,6 +1,9 @@
 name: AutoPost
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     # Runs at 8:00 AM UTC on Monday, Wednesday, and Friday
     - cron: '0 8 * * 1,4'
