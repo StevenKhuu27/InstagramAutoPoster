@@ -7,7 +7,6 @@ requests
 soupsieve
 tqdm
 urllib3
-email
 imaplib
 smtplib
 os
