@@ -1,0 +1,12 @@
+instabot
+datetime
+configparser
+numpy
+Pillow
+requests
+soupsieve
+tqdm
+urllib3
+imaplib
+smtplib
+os
