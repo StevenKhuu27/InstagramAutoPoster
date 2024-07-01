@@ -7,15 +7,23 @@ from instagram_poster import post_to_instagram
 from email_sender import send_email, check_email_response
 
 def main():
+    # We store our SMTP variables in the config.ini. If run locally, I would store my password and email variables in here too.
+    # Otherwise, store this within the Github Secrets: Repo > Settings > Secrets and variables > Actions > Repostiory secrets.
     config = configparser.ConfigParser()
     config.read('config.ini')
+
+
 
     while True:
         quote = get_quote()
         date_str = datetime.date.today().strftime('%Y-%m-%d')
-        # image_path = f"/app/posts/{date}.jpeg"
-        local_path = 'C:/Users/Steven/Documents/All things Code/Insta Poster/posts'
-        image_path = os.path.join(local_path, f'{date_str}.jpeg')
+        #Using this for Github Actions
+        path = 'posts'
+        # Using this for Local Run
+        # path = 'C:/Users/Steven/Documents/All things Code/Insta Poster/posts'
+        # Using this for DockerFile
+        # path = '/app/posts'
+        image_path = os.path.join(path, f'{date_str}.jpeg')
         create_image(quote)
         send_email(
             subject="New Instagram Post Preview",

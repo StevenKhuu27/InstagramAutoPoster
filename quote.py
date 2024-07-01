@@ -5,6 +5,7 @@ def get_quote():
     data = requests.get(api_url).json()
     text = data[0]['q']
     author = data[0]['a']
+    #Returns dict containing quote and author
     quote = {'quote': text, 'author': author}
 
     return quote
