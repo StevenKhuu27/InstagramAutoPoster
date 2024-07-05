@@ -1,6 +1,7 @@
 import configparser
 import datetime
 import os
+import shutil
 from posts import create_image
 from quote import get_quote
 from instagram_poster import post_to_instagram
@@ -12,7 +13,9 @@ def main():
     config = configparser.ConfigParser()
     config.read('config.ini')
 
-
+    workspace_path = "config"
+    if os.path.exists(workspace_path):
+        shutil.rmtree(workspace_path)
 
     while True:
         quote = get_quote()
