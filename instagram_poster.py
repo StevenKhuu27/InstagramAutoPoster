@@ -1,5 +1,6 @@
 
 from instabot import Bot
+import time
 import datetime
 import random
 import os
@@ -32,7 +33,7 @@ def post_to_instagram(file_path, config):
             bot.login(username=username, password=password)
             login_success = True
         except Exception as e:
-            print(f"Login Failed: {e}. Retrying in {backoff_time} seconds')
+            print(f"Login Failed: {e}. Retrying in {backoff_time} seconds")
             time.sleep(backoff_time)
             backoff_time = min(backoff_time * 2, max_backoff_time)
         
