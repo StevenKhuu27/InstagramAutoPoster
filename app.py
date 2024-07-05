@@ -13,6 +13,7 @@ def main():
     config = configparser.ConfigParser()
     config.read('config.ini')
 
+    # Removing residual cookies folder that was preventing login errors
     workspace_path = "config"
     if os.path.exists(workspace_path):
         shutil.rmtree(workspace_path)
