@@ -19,14 +19,23 @@ def post_to_instagram(file_path, config):
     username = os.getenv('INSTAGRAM_USERNAME')
     password = os.getenv('INSTAGRAM_PASSWORD')
 
-    if username and password:
-        # Use credentials in your script
-        print(f"Username: {username}, password is available")
-    else:
+    if not username or not password:
         print("Credentials not found or there was an error reading the config file.")
-    
-    # Login to Instagram
-    bot.login(username=username, password=password)
+
+    backoff_time = 60
+    max_backoff_time = 3600
+    login_success = False
+
+    while not login_success:
+        try:
+            # Login to Instagram
+            bot.login(username=username, password=password)
+            login_success = True
+        except Exception as e:
+            print(f"Login Failed: {e}. Retrying in {backoff_time} seconds')
+            time.sleep(backoff_time)
+            backoff_time = min(backoff_time * 2, max_backoff_time)
+        
 
     # Have a range of different quotes that are chosen randomly.
     caption = ["I always like to gain some inspiration from other successful people. Hopefully, these can bring guidance and keep you on the path of saving, investing, or whatever your goal may be.",
@@ -65,7 +74,10 @@ def post_to_instagram(file_path, config):
     # Lucky Dips a caption from the caption array and adds the tags.
     today_caption = caption[random.randint(0,9)] + tags
     # Uploads the photo
+    backoff_timer = 60
     try:
         bot.upload_photo(file_path, caption=today_caption)
     except Exception as e:
         logging.error(f"Error uploading photo: {e}")
+        time.sleep(backoff_timer)
+        backoff_time = min(backoff_time * 2, max_backoff_time)
