@@ -2,6 +2,7 @@ import configparser
 import datetime
 import os
 import shutil
+import time
 from posts import create_image
 from quote import get_quote
 from instagram_poster import post_to_instagram
@@ -41,11 +42,15 @@ def main():
             response = check_email_response(config)
 
         if response:
-            post_to_instagram(image_path, config)
-            print(f"Posted {image_path} to Instagram.")
-            break
-        else:
-            print(f"Received 'N', regenerating image and sending email again.")
+            try:
+                post_to_instagram(image_path, config)
+                print(f"Posted {image_path} to Instagram.")
+                break
+            except Exception as e:
+                print(f"Error: {e}")
+                time.sleep(300)  # Sleep for 5 minutes before retrying
+        # else:
+        #     print(f"Received 'N', regenerating image and sending email again.")
 
 if __name__ == '__main__':
     main()
