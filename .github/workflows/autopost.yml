@@ -21,6 +21,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Directory Check
+      run: |
+        pwd
+        ls -a
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -30,7 +35,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-
+        
+    - name: Directory Check 2
+      run: |
+        pwd
+        ls -a
     - name: Run Instagram poster script
       run: python app.py
       env:
