@@ -21,29 +21,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install Dev Proxy
-      run: bash -c "$(curl -sL https://aka.ms/devproxy/setup.sh)"
-
-    - name: Run Dev Proxy
-      run: /bin/bash run-dev-proxy.sh
-
-    - name: Install the Dev Proxy's certificate
-      timeout-minutes: 1
-      run: |
-        echo "Export the Dev Proxy's Root Certificate"
-        openssl pkcs12 -in ~/.config/dev-proxy/rootCert.pfx -clcerts -nokeys -out dev-proxy-ca.crt -passin pass:""
-
-        echo "Installing the Dev Proxy's Root Certificate"
-        sudo cp dev-proxy-ca.crt /usr/local/share/ca-certificates/
-
-        echo "Updating the CA certificates"
-        sudo update-ca-certificates
-        echo "Certificate trusted."
-
-        # Set the system proxy settings (optional)
-        echo "http_proxy=http://127.0.0.1:8000" >> $GITHUB_ENV
-        echo "https_proxy=http://127.0.0.1:8000" >> $GITHUB_ENV
-
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
