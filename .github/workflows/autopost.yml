@@ -25,7 +25,7 @@ jobs:
       run: bash -c "$(curl -sL https://aka.ms/devproxy/setup.sh)"
 
     - name: Run Dev Proxy
-      run: ./devproxy/devproxy &
+      run: /bin/bash run-dev-proxy.sh
 
     - name: Install the Dev Proxy's certificate
       timeout-minutes: 1
